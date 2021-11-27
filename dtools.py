@@ -11,6 +11,69 @@ import pandas as pd
 #                                                             #
 ###############################################################
 
+# Input a series to get a plot of the series, the distribution
+    # and the fourier transforms
+def timeSeries(series):
+    # Sets the main title and figure size
+    plt.suptitle('Values of Series')
+    plt.figure(figsize=[10,14])
+    # Sets there to be an appropriate number of bins
+    binNumber = int(np.round(series.size / 20.0))
+    
+    # Real and imaginary part of fourier transform
+    seriesFT = np.fft.fft(series)
+    seriesFTreal = np.real(seriesFT)
+    seriesFTimag = np.imag(seriesFT)
+    seriesFTnorm = np.sqrt((seriesFTreal ** 2) + (seriesFTimag ** 2))
+    seriesFTarg = np.arctan2(seriesFTimag,seriesFTreal)
+
+    # Plot the time series of the vector
+    plt.subplot(4,1,1)
+    plt.plot(series)
+    plt.ylabel('Strength')
+    plt.xlabel('Time')
+    plt.title('Time Series')
+
+    # Distribution of values for series
+    plt.subplot(4,1,2)
+    plt.hist(series,bins = binNumber)
+    plt.title('Distribution of Values')
+
+    # Plots the real and imaginary parts of FFT
+    plt.subplot(4,2,5)
+    plt.plot(seriesFTreal)
+    plt.title('Real FFT')
+    plt.xlabel('Frequency')
+
+    plt.subplot(4,2,6)
+    plt.plot(seriesFTimag)
+    plt.title('Imaginary FFT')
+    plt.xlabel('Frequency')
+
+    # Plots the modulus and phase of FT
+    plt.subplot(4,2,7)
+    plt.plot(seriesFTnorm)
+    plt.plot('Modulus FFT')
+    plt.xlabel('Frequency')
+    
+    plt.subplot(4,2,8)
+    plt.plot(seriesFTarg)
+    plt.plot('Argument FFT')
+    plt.xlabel('Frequency')
+
+    # Formats to be clean
+    plt.tight_layout()
+    plt.show()
+
+# Takes in phase coordinates
+# typically momentum and position and produces phase plot 
+def phaseplot(position,momentum):
+    plt.scatter(position,momentum)
+    plt.xlabel('Generalized Position')
+    plt.ylabel('Generalized Momentum')
+    plt.title('Phase Space')
+    
+
 ###############################################################
 #                                                             #
 #   Tools for Poincare Plots of periodically driven systems   #
@@ -73,16 +136,6 @@ def poincare(time_ind_force,qo,po,g,n):
         pvals[k] = p
     return qvals, pvals
 
-# Plots poincare map for damped driven pendulum over n periods
-    # time_ind_force:= the time independent force (q,p); function
-    # qo:= the initial position; float
-    # po:= the initial momentum; float
-    # g:= the strength of driving force; float
-    # n:= number of periods; int
-def poincare_plot(time_ind_force,qo,po,g,n):
-    qvals, pvals = poincare(time_ind_force,qo,po,g,n)
-    plt.scatter(qvals,pvals)
-    plt.show()
 
 ## Common unforced systems (called by sinus_solution)
 # for all of these
@@ -132,21 +185,6 @@ def periodic_impulse(impulse,qo,po,n):
         q[j] = q[j-1] + p[j-1] + impulse(q[j-1])
         p[j] = p[j-1]
     return q,p
-
-# Plots solutions to periodically impulsed system
-    # impulse := the impulse as a function of q; function
-    # qo:= initial coordinate; float
-    # po:= initial momentum; float
-    # n:= number of periods to solve for; int
-def periodic_impulse_plot(impulse,qo,po,n):
-    q,p = periodic_impulse(impulse,qo,po,n)
-    plt.scatter(q,p)
-    plt.show()
-
-
-def the_force(q):
-    return -1*q
-
 
 
 
