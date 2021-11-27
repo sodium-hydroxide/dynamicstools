@@ -2,14 +2,28 @@
 # Imports packages used
 import numpy as np
 import sympy as sp
-import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+import pandas as pd
 
+###############################################################
+#                                                             #
+#                      General Tools                          #
+#                                                             #
+###############################################################
+
+###############################################################
+#                                                             #
+#   Tools for Poincare Plots of periodically driven systems   #
+#                                                             #
+###############################################################
 ## Tools for Sinusoidal Forces
 # These are for a system with driving force of the form
     # F(t) = g cos(2 pi t)
     # where g is strength of force
     # the period is fixed at one so that the equations are a little nicer
+
+
+
 
 # Function to use runga kutta solve system over one period
 # dq/dt = p
@@ -95,6 +109,11 @@ def duffing(q,p):
     force = q - (q**3)
     return force
 
+###############################################################
+#                                                             #
+#          Tools for periodically impulsed systems            #
+#                                                             #
+###############################################################
 
 ### Set of tools for a periodically impulsed particle
 # solves for the first n values of the recursion relation
@@ -128,4 +147,19 @@ def periodic_impulse_plot(impulse,qo,po,n):
 def the_force(q):
     return -1*q
 
-periodic_impulse_plot(the_force,1,0,100)
+
+
+
+###############################################################
+#                                                             #
+#                Tools for stochastic systems                 #
+#                                                             #
+###############################################################
+
+
+
+###############################################################
+#                                                             #
+#             Tools for Classical Chaotic Maps                #
+#                                                             #
+###############################################################
