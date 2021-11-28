@@ -53,13 +53,11 @@ def timeSeries(series):
     # Plots the modulus and phase of FT
     plt.subplot(4,2,7)
     plt.plot(seriesFTnorm)
-    plt.plot('Modulus FFT')
-    plt.xlabel('Frequency')
+    plt.title('Modulus FFT')
     
     plt.subplot(4,2,8)
     plt.plot(seriesFTarg)
-    plt.plot('Argument FFT')
-    plt.xlabel('Frequency')
+    plt.title('Argument FFT')
 
     # Formats to be clean
     plt.tight_layout()
@@ -67,7 +65,7 @@ def timeSeries(series):
 
 # Takes in phase coordinates
 # typically momentum and position and produces phase plot 
-def phaseplot(position,momentum):
+def phasePlot(position,momentum):
     plt.scatter(position,momentum)
     plt.xlabel('Generalized Position')
     plt.ylabel('Generalized Momentum')
