@@ -199,3 +199,6 @@ def periodic_impulse(impulse,qo,po,n):
 #             Tools for Classical Chaotic Maps                #
 #                                                             #
 ###############################################################
+def logistic_map(x,r=1):
+    return r*x*(1-x)
+
